@@ -1,0 +1,20 @@
+apiVersion: v1
+entries:
+  ecr-cred-helper:
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2021-07-18T22:24:56.670878742Z"
+    description: A utility to update a Docker registry secret for AWS ECR repositories in all labeled namespaces
+    digest: 57c495e8fb4bc960f10aba6a37fee35d82aee32ef6887108e6c2ef903cc8d9be
+    home: https://github.com/jasonshobe/helm-charts
+    maintainers:
+    - email: jason.shobe@gmail.com
+      name: Jason Shobe
+    name: ecr-cred-helper
+    sources:
+    - https://github.com/jasonshobe/helm-charts/charts/ecr-cred-helper
+    type: application
+    urls:
+    - https://github.com/jasonshobe/helm-charts/releases/download/ecr-cred-helper-1.0.0/ecr-cred-helper-1.0.0.tgz
+    version: 1.0.0
+generated: "2021-07-18T22:24:56.547889476Z"
