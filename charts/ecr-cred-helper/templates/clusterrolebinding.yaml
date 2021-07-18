@@ -1,0 +1,20 @@
+{{- if .Values.clusterRoleBinding.create -}}
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: {{ include "ecr-cred-helper.clusterRoleBindingName" . }}
+  labels:
+  {{- include "ecr-cred-helper.labels" . | nindent 4 }}
+  {{- with .Values.clusterRoleBinding.annotations }}
+  annotations:
+  {{- toYaml . | nindent 4 }}
+  {{- end }}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: {{ include "ecr-cred-helper.clusterRoleName" . }}
+subjects:
+  - kind: ServiceAccount
+    name: {{ include "ecr-cred-helper.serviceAccountName" . }}
+    namespace: {{ include "ecr-cred-helper.serviceAccountNamespace" . }}
+  {{- end }}

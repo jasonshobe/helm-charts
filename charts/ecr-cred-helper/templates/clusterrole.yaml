@@ -1,0 +1,16 @@
+{{- if .Values.clusterRole.create -}}
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: {{ include "ecr-cred-helper.clusterRoleName" . }}
+  labels:
+  {{- include "ecr-cred-helper.labels" . | nindent 4 }}
+  {{- with .Values.clusterRole.annotations }}
+  annotations:
+  {{- toYaml . | nindent 4 }}
+  {{- end }}
+rules:
+  - apiGroups: [ "" ]
+    resources: [ "namespaces", "secrets" ]
+    verbs: [ "get", "list", "watch", "create", "patch" ]
+  {{- end }}

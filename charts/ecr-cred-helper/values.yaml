@@ -1,0 +1,101 @@
+# Default values for ecr-cred-helper.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+image:
+  repository: jasonshobe/k8s-ecr-cred-helper
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: ""
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+clusterRole:
+  # Specifies whether a cluster role should be created
+  create: true
+  # Annotations to add to the cluster role
+  annotations: {}
+  # The name of the cluster role to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+clusterRoleBinding:
+  # Specifies whether a cluster role binding should be created
+  create: true
+  # Annotations to add to the cluster role binding
+  annotations: {}
+  # The name of the cluster role binding to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+aws:
+  # Specifies whether a secret containing the AWS credentials should be created
+  # If not created, an opaque secret with the AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY literals should exist with the specified name
+  createSecret: true
+  # Annotations to add to the secret
+  secretAnnotations: {}
+  # The name of the secret to use.
+  # If not set and create is true, a name is generated using the fullname template
+  secretName: ""
+  # The AWS access key ID
+  accessKeyId: ""
+  # The AWS secret access key
+  secretAccessKey: ""
+  # The AWS region
+  region: "us-east-1"
+  # The AWS account ID
+  # This is used to generate the Docker registry host
+  accountId: ""
+  # The ECR registry hostname
+  # If not set, it will be generated from the account ID and region
+  registryHostname: ""
+  # The name of the Docker registry secret generated in the labeled namespaces
+  generatedSecretName: "ecr-creds"
+  # The name of the label used to identify namespaces that require AWS Docker credentials
+  labelName: "credentialType"
+  # The value of the label used to identify namespaces that require AWS Docker credentials
+  labelValue: "ecr"
+  # The cronjob expression that specifies when the credentials are updated
+  cronSchedule: "0 */6 * * *"
+
+podAnnotations: {}
+
+podSecurityContext: {}
+  # fsGroup: 2000
+
+securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+resources: {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
